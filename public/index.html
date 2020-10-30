@@ -11,5 +11,29 @@
     </head>
     <body>
         <div id="root"></div>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+             https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-analytics.js"></script>
+
+        <script>
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            var firebaseConfig = {
+                apiKey: "AIzaSyDgp49UFzGk8sW4qn6myUkKcfBATQ-AChk",
+                authDomain: "gameexchange-879cb.firebaseapp.com",
+                databaseURL: "https://gameexchange-879cb.firebaseio.com",
+                projectId: "gameexchange-879cb",
+                storageBucket: "gameexchange-879cb.appspot.com",
+                messagingSenderId: "960617817785",
+                appId: "1:960617817785:web:b2c04561586d88c68b9d68",
+                measurementId: "G-Z1VT7L6EL3"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            firebase.analytics();
+        </script>
     </body>
 </html>
