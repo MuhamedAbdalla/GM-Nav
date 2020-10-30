@@ -1,6 +1,6 @@
 import React from "react";
-import SplashScreen from './splash_screen/splash_screen';
-import LoginScreen from "./login_screen/login";
+import SplashScreen from './splash/splash_screen';
+import LoginScreen from "./login/login";
 
 class Main extends React.Component {
   state = {
