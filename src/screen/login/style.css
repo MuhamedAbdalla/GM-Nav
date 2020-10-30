@@ -1,8 +1,9 @@
 @import url("https://fonts.googleapis.com/css?family=Rubik:400,500&display=swap");
 
-.banner-utl {
+.bann-utl {
   margin: auto;
   background-position: center;
+  height: 625px;
 }
 
 .logo-utl {
@@ -76,7 +77,6 @@ body {
 
 .form > p {
   text-align: right;
-  margin-top: 40px;
   margin-right: -50px;
   color: #fff;
 }
@@ -91,7 +91,7 @@ body {
   border: 2px solid #ddd;
   border-radius: 20px;
   font-family: "Rubik", sans-serif;
-  margin-top: 80px;
+  margin-top: 80zpx;
   margin-left: 40px;
   margin-right: -50px;
   margin-bottom: 0px;
@@ -153,7 +153,7 @@ body {
 }
 
 .a6 {
-  animation-delay: 0.5s;
+  animation-delay: 0s;
 }
 
 @keyframes move {
@@ -186,10 +186,9 @@ body {
 /* Style all font awesome icons */
 .fa {
   width: 60px;
-  height: 70px;
+  height: 60px;
   border-radius: 1000%;
   margin-left: 190px;
-  margin-top: 20px;
 }
 
 /* Set a specific color for each brand */
