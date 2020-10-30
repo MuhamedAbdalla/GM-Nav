@@ -12,10 +12,13 @@
     <body>
         <div id="root"></div>
         <!-- The core Firebase JS SDK is always required and must be listed first -->
-        <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+        <script defer src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+
+        <script defer src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
+        <script defer src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
 
         <!-- TODO: Add SDKs for Firebase products that you want to use
-             https://firebase.google.com/docs/web/setup#available-libraries -->
+                     https://firebase.google.com/docs/web/setup#available-libraries -->
         <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-analytics.js"></script>
 
         <script>
@@ -28,8 +31,8 @@
                 projectId: "gameexchange-879cb",
                 storageBucket: "gameexchange-879cb.appspot.com",
                 messagingSenderId: "960617817785",
-                appId: "1:960617817785:web:b2c04561586d88c68b9d68",
-                measurementId: "G-Z1VT7L6EL3"
+                appId: "1:960617817785:web:2b2e6bfa92e207668b9d68",
+                measurementId: "G-77TNXWKQ5N"
             };
             // Initialize Firebase
             firebase.initializeApp(firebaseConfig);
