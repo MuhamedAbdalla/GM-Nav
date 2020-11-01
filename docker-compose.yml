@@ -1,0 +1,26 @@
+version: '2'
+services:
+  server:
+    build:
+      context: ./database_manager/
+    command: /usr/app/node_modules/.bin/nodemon src/server.js
+    volumes:
+      - ./database_manager/:/usr/app
+      - /usr/app/node_modules
+    ports:
+      - "8080:8080"
+    # env_file: ./server/.env # TODO - uncomment this to auto-load your .env file!
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+  client:
+    build:
+      context: ./
+    command: npm start
+    volumes:
+      - ./:/usr/app
+      - /usr/app/node_modules
+    depends_on:
+      - server
+    ports:
+      - "3000:3000"
