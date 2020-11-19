@@ -2,10 +2,10 @@ version: '2'
 services:
   server:
     build:
-      context: ./database_manager/
+      context: ./Database-Server/
     command: /usr/app/node_modules/.bin/nodemon src/server.js
     volumes:
-      - ./database_manager/:/usr/app
+      - ./Database-Server/:/usr/app
       - /usr/app/node_modules
     ports:
       - "8080:8080"
