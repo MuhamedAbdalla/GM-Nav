@@ -1,17 +1,35 @@
 const firebase = require("firebase").default;
 const express = require("express");
 const body_parser = require("body-parser");
-const cors = require('cors');
+const cors = require("cors");
+const test_url =
+  process.env.MOCKFIREBASE_DB_URL || "https://localhost.firebaseio.test:5000";
+
+var serviceAccountKey = require("./serviceAccountKey.json");
 
 // Required for side-effects
 require("firebase/firestore");
 
-// Initialize Cloud Firestore through Firebase
-firebase.initializeApp({
-  apiKey: "AIzaSyDgp49UFzGk8sW4qn6myUkKcfBATQ-AChk",
-  authDomain: "gameexchange-879cb.firebaseapp.com",
-  projectId: "gameexchange-879cb",
-});
+if (process.env.NODE_ENV == "test" && test_url) {
+  firebase.initializeApp({
+    projectId: "gameexchange-879cb",
+    apiKey: "AasaSyDgp49UFzGk8sW4qn6myUkKcfBATQ-AChk",
+    databaseURL: test_url,
+  });
+} else {
+  // Initialize Cloud Firestore through Firebase
+  firebase.initializeApp({
+    apiKey: "AIzaSyDgp49UFzGk8sW4qn6myUkKcfBATQ-AChk",
+    authDomain: "gameexchange-879cb.firebaseapp.com",
+    databaseURL: "https://gameexchange-879cb.firebaseio.com",
+    projectId: "gameexchange-879cb",
+    storageBucket: "gameexchange-879cb.appspot.com",
+    messagingSenderId: "960617817785",
+    appId: "1:960617817785:web:2b2e6bfa92e207668b9d68",
+    measurementId: "G-77TNXWKQ5N",
+    serviceAccount: serviceAccountKey,
+  });
+}
 
 var db = firebase.firestore();
 const DatabaseConstants = [
@@ -27,158 +45,180 @@ const DatabaseConstants = [
   "LIMIT",
 ];
 
-
-var POST = 8080;
+var PORT = process.env.PORT || 8080;
 const app = express();
 
 app.use(body_parser.json());
 app.use(cors());
 
-
 const server = app.listen(PORT, () => {
-    POST = server.address().port;
-    console.log('Listening on port:', POST);
+  PORT = server.address().port;
+  console.log("Listening on port:", PORT);
 });
 
-
-app.post('/insert', async (req, res) => {
-    var json = req.body;
-    const path = json.path;
-    const model = json.model;
-    var collection = getDocument(path);
-
-    await collection
-    .set(
-      model,
-    )
+app.post("/insert", async (req, res) => {
+  var json = req.body;
+  const path = json.path;
+  const model = json.model;
+  var collection = getDocument(path);
+  await collection
+    .set(model)
     .then(() => {
-      res.send('Success');
+      res.send("Success");
     })
-    .catch( (error) => {
+    .catch((error) => {
       console.log("Can't access database\nError details: " + error);
-      res.send('Failed ' + error);
+      res.send("Failed " + error);
     });
 
-    res.end();
+  res.end();
 });
 
-app.put('/update', async (req, res) => {
+app.put("/update", async (req, res) => {
   var json = req.body;
   const path = json.path;
   const model = json.model;
   var collection = getDocument(path);
 
   await collection
-  .update(
-    model,
-  )
-  .then(() => {
-    res.send('Success');
-  })
-  .catch( (error) => {
-    console.log("Can't access database\nError details: " + error);
-    res.send('Failed ' + error);
-  });
-  
+    .update(model)
+    .then(() => {
+      res.send("Success");
+    })
+    .catch((error) => {
+      console.log("Can't access database\nError details: " + error);
+      res.send("Failed " + error);
+    });
+
   res.end();
 });
 
-app.delete('/delete', async (req, res) => {
+app.delete("/delete", async (req, res) => {
   var json = req.body;
   const path = json.path;
   const model = json.model;
   var collection = getDocument(path);
 
   await collection
-  .delete()
-  .then(() => {
-    res.send('Success');
-  })
-  .catch( (error) => {
-    console.log("Can't access database\nError details: " + error);
-    res.send('Failed ' + error);
-  });
+    .delete()
+    .then(() => {
+      res.send("Success");
+    })
+    .catch((error) => {
+      console.log("Can't access database\nError details: " + error);
+      res.send("Failed " + error);
+    });
 
   res.end();
 });
 
-app.get('/get', async (req, res) => {
+app.get("/get", async (req, res) => {
   var json = req.body;
   const path = json.path;
-  const model = json.model;
   var collection = getDocument(path);
 
   await collection
-  .get()
-  .then((doc) => {
-    res.send(doc.data());
-  })
-  .catch( (error) => {
-    console.log("Can't access database\nError details: " + error);
-    res.send('Failed ' + error);
-  });
-  
+    .get()
+    .then((doc) => {
+      res.send(doc.data());
+    })
+    .catch((error) => {
+      console.log("Can't access database\nError details: " + error);
+      res.send("Failed " + error);
+    });
+
   res.end();
 });
 
-app.get('/getWithConditions', async (req, res) => {
+app.get("/getWithConditions", async (req, res) => {
   var json = req.body;
   const path = json.path;
   const conditions = json.conditions;
   var collection = getCollection(path);
 
   for (let i = 0; i < conditions.length; i++) {
-    switch(conditions[i].type) {
+    switch (conditions[i].type) {
       case DatabaseConstants[0]:
-        collection = collection.where(conditions[i].field, ">=", conditions[i].value);
+        collection = collection.where(
+          conditions[i].field,
+          ">=",
+          conditions[i].value
+        );
         break;
 
       case DatabaseConstants[1]:
-        collection = collection.startAfter(getDocument(conditions[i].value).get());
+        collection = collection.startAfter(
+          getDocument(conditions[i].value).get()
+        );
         break;
 
       case DatabaseConstants[2]:
-        collection = collection.where(conditions[i].field, "<=", conditions[i].value);
+        collection = collection.where(
+          conditions[i].field,
+          "<=",
+          conditions[i].value
+        );
         break;
 
       case DatabaseConstants[3]:
-        collection = collection.where(conditions[i].field, ">", conditions[i].value);
+        collection = collection.where(
+          conditions[i].field,
+          ">",
+          conditions[i].value
+        );
         break;
 
       case DatabaseConstants[4]:
-        collection = collection.where(conditions[i].field, "array-contains-any", conditions[i].value);
+        collection = collection.where(
+          conditions[i].field,
+          "array-contains-any",
+          conditions[i].value
+        );
         break;
 
       case DatabaseConstants[5]:
-        collection = collection.where(conditions[i].field, "<", conditions[i].value);
+        collection = collection.where(
+          conditions[i].field,
+          "<",
+          conditions[i].value
+        );
         break;
 
       case DatabaseConstants[6]:
-        collection = collection.where(conditions[i].field, "array-contains", conditions[i].value);
+        collection = collection.where(
+          conditions[i].field,
+          "array-contains",
+          conditions[i].value
+        );
         break;
 
       case DatabaseConstants[7]:
-        collection = collection.orderBy(conditions[i].field, conditions[i].desc ? "desc" : "asc");
+        collection = collection.orderBy(
+          conditions[i].field,
+          conditions[i].desc ? "desc" : "asc"
+        );
         break;
 
       case DatabaseConstants[8]:
-        collection = collection.where(conditions[i].field, "==", conditions[i].value);
+        collection = collection.where(
+          conditions[i].field,
+          "==",
+          conditions[i].value
+        );
         break;
-      
+
       case DatabaseConstants[9]:
         collection = collection.limit(conditions[i].value);
         break;
     }
   }
 
-  let doc = await collection
-  .get()
-  .catch((error) => {
+  let doc = await collection.get().catch((error) => {
     console.log("Can't access database\nError details: " + error);
-    res.send('Failed');
+    res.send("Failed");
   });
 
-  var data = doc.docs.map(document => document.data());
+  var data = doc.docs.map((document) => document.data());
 
   res.send(data);
 
@@ -191,7 +231,7 @@ function getCollection(path) {
   for (let i = 1; i + 1 < path.length; i += 2) {
     collection = collection.doc(path[i]).collection(path[i + 1]);
   }
-  
+
   return collection;
 }
 
@@ -201,6 +241,4 @@ function getDocument(path) {
   return collection.doc(path[path.length - 1]);
 }
 
-module.exports = {
-    POST: POST
-}
+module.exports = app;

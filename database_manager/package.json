@@ -4,19 +4,28 @@
   "description": "Communication with database",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "test": "mocha --recursive --exit",
+    "mac-test": "MOCKFIREBASE_DB_URL = ws://localhost.firebaseio.test:5000 && mocha --recursive --exit",
+    "win-test": "SETX MOCKFIREBASE_DB_URL   ws://localhost.firebaseio.test:5000 && mocha --recursive --exit"
   },
   "keywords": [],
   "author": "MuhammedAbdalla",
   "license": "ISC",
   "dependencies": {
+    "@firebase/testing": "^0.20.11",
     "axios": "^0.21.0",
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "firebase": "^8.0.0",
+    "firebase-functions": "^3.11.0",
     "firebase-functions-test": "^0.2.3",
-    "firebase-server": "^1.1.0"
+    "firebase-server": "^1.1.0",
+    "firebase-tools": "^8.16.2",
+    "mockgoose": "^8.0.4",
+    "mongoose": "^5.10.15",
+    "supertest": "^6.0.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
