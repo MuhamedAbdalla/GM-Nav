@@ -9,7 +9,10 @@
     "mac-test": "MOCKFIREBASE_DB_URL = ws://localhost.firebaseio.test:5000 && mocha --recursive --exit",
     "win-test": "SETX MOCKFIREBASE_DB_URL   ws://localhost.firebaseio.test:5000 && mocha --recursive --exit"
   },
-  "keywords": [],
+  "keywords": [
+    "example",
+    "heroku"
+  ],
   "author": "MuhammedAbdalla",
   "license": "ISC",
   "dependencies": {
@@ -32,5 +35,8 @@
     "mocha": "^8.2.1",
     "nock": "^13.0.5",
     "nodemon": "^2.0.2"
+  },
+  "engines": {
+    "node": "10.x"
   }
 }
