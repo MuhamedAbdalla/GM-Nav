@@ -1,35 +1,9 @@
-const firebase = require("firebase").default;
+const firebase = require("./admin");
 const express = require("express");
 const body_parser = require("body-parser");
 const cors = require("cors");
-const test_url =
-  process.env.MOCKFIREBASE_DB_URL || "https://localhost.firebaseio.test:5000";
-
-var serviceAccountKey = require("./serviceAccountKey.json");
-
-// Required for side-effects
-require("firebase/firestore");
-
-if (process.env.NODE_ENV == "test" && test_url) {
-  firebase.initializeApp({
-    projectId: "gameexchange-879cb",
-    apiKey: "AasaSyDgp49UFzGk8sW4qn6myUkKcfBATQ-AChk",
-    databaseURL: test_url,
-  });
-} else {
-  // Initialize Cloud Firestore through Firebase
-  firebase.initializeApp({
-    apiKey: "AIzaSyDgp49UFzGk8sW4qn6myUkKcfBATQ-AChk",
-    authDomain: "gameexchange-879cb.firebaseapp.com",
-    databaseURL: "https://gameexchange-879cb.firebaseio.com",
-    projectId: "gameexchange-879cb",
-    storageBucket: "gameexchange-879cb.appspot.com",
-    messagingSenderId: "960617817785",
-    appId: "1:960617817785:web:2b2e6bfa92e207668b9d68",
-    measurementId: "G-77TNXWKQ5N",
-    serviceAccount: serviceAccountKey,
-  });
-}
+const PAGE_PATH = "./chat_active.html";
+const SERVER_NONE = "/";
 
 var db = firebase.firestore();
 const DatabaseConstants = [
@@ -54,6 +28,10 @@ app.use(cors());
 const server = app.listen(PORT, () => {
   PORT = server.address().port;
   console.log("Listening on port:", PORT);
+});
+
+app.get(SERVER_NONE, (req, res) => {
+  res.sendFile(PAGE_PATH, { root: __dirname });
 });
 
 app.post("/insert", async (req, res) => {

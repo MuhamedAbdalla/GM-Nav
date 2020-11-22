@@ -4,6 +4,8 @@ import Background from "../commponents/background.jpg";
 import Logo from "../commponents/icon.png";
 import SignUpScreen from "../signUp/SignUp";
 import ForgetPassword from "../forgetPassword/forgetPassword";
+import BackendConstants from "../../constants/Backend-Constants";
+import GmailAuthentication from '../../services/gmailAuth';
 
 class LoginScreen extends React.Component {
   state = {
@@ -27,6 +29,20 @@ class LoginScreen extends React.Component {
     this.setState({
       forgetPasswordFlag: true,
     })
+  }
+  async gmailAuthentication() {
+    var user = await GmailAuthentication.gmailAuth();
+    /*
+    TODO: MEDO
+    fetch(BackendConstants.Host + '/getWithConditions',{
+      method: 'get',
+      headers: {'content-type': 'application/json'},
+      body: JSON.stringify({
+          email: this.user.email,
+          password: this.user.password
+      })
+    });
+    */
   }
   render() {
     if (this.state.signUpFlag) {
@@ -63,7 +79,7 @@ class LoginScreen extends React.Component {
                 <button className="animation a6" onClick={this.signUpNavigator}>
                   Sign Up
                 </button>
-                <a href="#" class="fa fa-google animation a2"></a>
+                <a href="#" class="fa fa-google animation a2" onClick={this.gmailAuthentication}></a>
                 <p className="animation a5" onClick={this.forgetPasswordNavigator}>Forgot Password</p>
               </div>
             </div>
