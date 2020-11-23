@@ -6,6 +6,7 @@ import SignUpScreen from "../signUp/SignUp";
 import ForgetPassword from "../forgetPassword/forgetPassword";
 import BackendConstants from "../../constants/Backend-Constants";
 import GmailAuthentication from '../../services/gmailAuth';
+import Conditions from '../../../src/models/Conditions';
 
 class LoginScreen extends React.Component {
   state = {
@@ -32,17 +33,59 @@ class LoginScreen extends React.Component {
   }
   async gmailAuthentication() {
     var user = await GmailAuthentication.gmailAuth();
-    /*
-    TODO: MEDO
-    fetch(BackendConstants.Host + '/getWithConditions',{
-      method: 'get',
+    var path = [BackendConstants.USER_COLLECTION_ENTRY];
+    var cond = [];
+
+    cond.push(new Conditions(
+      null,
+      user.email,
+      BackendConstants.USER_MAIL_ENTRY,
+      BackendConstants.DatabaseConstants[8],
+    ));
+
+    let isUserLogged = true;
+    fetch(BackendConstants.Cloud + '/getWithConditions',{
+      method: 'post',
       headers: {'content-type': 'application/json'},
       body: JSON.stringify({
-          email: this.user.email,
-          password: this.user.password
-      })
+          path: path,
+          conditions: cond,
+      }),
+    })
+    .then((res) => {
+      res.json().then(data => {
+        if (data.response.length == 0) {
+          isUserLogged = false;
+        }
+      });
+    })
+    .catch((error) => {
+      console.log('error fetching user' + error);
     });
-    */
+
+    if (!isUserLogged) {
+      path = [];
+      
+      //TODO: Continue
+      fetch(BackendConstants.Cloud + '/insert',{
+        method: 'post',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify({
+            path: path,
+            conditions: cond,
+        }),
+      })
+      .then((res) => {
+        res.json().then(data => {
+          if (data.response.length == 0) {
+            isUserLogged = false;
+          }
+        });
+      })
+      .catch((error) => {
+        console.log('error inserting user' + error);
+      });
+    }
   }
   render() {
     if (this.state.signUpFlag) {

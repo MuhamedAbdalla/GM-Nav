@@ -33,7 +33,7 @@ describe("Get User tests", () => {
       })
       .then((res) => {
         request(server)
-          .get("/get")
+          .post("/get")
           .send({
             path: ["User", "xx"],
           })

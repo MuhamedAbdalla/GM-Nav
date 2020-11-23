@@ -34,12 +34,12 @@ app.get(SERVER_NONE, (req, res) => {
   res.sendFile(PAGE_PATH, { root: __dirname });
 });
 
-app.post("/insert", async (req, res) => {
+app.post("/insert", (req, res) => {
   var json = req.body;
   const path = json.path;
   const model = json.model;
   var collection = getDocument(path);
-  await collection
+  collection
     .set(model)
     .then(() => {
       res.send("Success");
@@ -52,13 +52,13 @@ app.post("/insert", async (req, res) => {
   res.end();
 });
 
-app.put("/update", async (req, res) => {
+app.put("/update", (req, res) => {
   var json = req.body;
   const path = json.path;
   const model = json.model;
   var collection = getDocument(path);
 
-  await collection
+  collection
     .update(model)
     .then(() => {
       res.send("Success");
@@ -71,13 +71,13 @@ app.put("/update", async (req, res) => {
   res.end();
 });
 
-app.delete("/delete", async (req, res) => {
+app.delete("/delete", (req, res) => {
   var json = req.body;
   const path = json.path;
   const model = json.model;
   var collection = getDocument(path);
 
-  await collection
+  collection
     .delete()
     .then(() => {
       res.send("Success");
@@ -90,12 +90,12 @@ app.delete("/delete", async (req, res) => {
   res.end();
 });
 
-app.get("/get", async (req, res) => {
+app.post("/get", (req, res) => {
   var json = req.body;
   const path = json.path;
   var collection = getDocument(path);
 
-  await collection
+  collection
     .get()
     .then((doc) => {
       res.send(doc.data());
@@ -108,7 +108,7 @@ app.get("/get", async (req, res) => {
   res.end();
 });
 
-app.get("/getWithConditions", async (req, res) => {
+app.post("/getWithConditions", (req, res) => {
   var json = req.body;
   const path = json.path;
   const conditions = json.conditions;
@@ -191,16 +191,21 @@ app.get("/getWithConditions", async (req, res) => {
     }
   }
 
-  let doc = await collection.get().catch((error) => {
+  collection
+  .get()
+  .then((doc) => {
+    var data = [];
+    
+    for (let i = 0; i < doc.docs.length; i++) {
+      data.push(doc.docs[i].data());
+    }
+
+    res.send({response: data});
+  })
+  .catch((error) => {
     console.log("Can't access database\nError details: " + error);
-    res.send("Failed");
+    res.send({response: "Failed"});
   });
-
-  var data = doc.docs.map((document) => document.data());
-
-  res.send(data);
-
-  res.end();
 });
 
 function getCollection(path) {
