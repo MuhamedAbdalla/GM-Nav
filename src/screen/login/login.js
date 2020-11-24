@@ -110,7 +110,7 @@ class LoginScreen extends React.Component {
     .catch((error) => {
       console.log('error fetching user' + error);
     });
-    await setTimeout(async () => {}, 5000);
+    setTimeout(async () => { }, 5000);
   }
   render() {
     if (this.state.signUpFlag) {
