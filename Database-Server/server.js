@@ -34,12 +34,13 @@ app.get(SERVER_NONE, (req, res) => {
   res.sendFile(PAGE_PATH, { root: __dirname });
 });
 
-app.post("/insert", (req, res) => {
+app.post("/insert", async (req, res) => {
   var json = req.body;
   const path = json.path;
   const model = json.model;
   var collection = getDocument(path);
-  collection
+
+  await collection
     .set(model)
     .then(() => {
       res.send("Success");
@@ -48,17 +49,15 @@ app.post("/insert", (req, res) => {
       console.log("Can't access database\nError details: " + error);
       res.send("Failed " + error);
     });
-
-  res.end();
 });
 
-app.put("/update", (req, res) => {
+app.put("/update", async (req, res) => {
   var json = req.body;
   const path = json.path;
   const model = json.model;
   var collection = getDocument(path);
 
-  collection
+  await collection
     .update(model)
     .then(() => {
       res.send("Success");
@@ -67,17 +66,15 @@ app.put("/update", (req, res) => {
       console.log("Can't access database\nError details: " + error);
       res.send("Failed " + error);
     });
-
-  res.end();
 });
 
-app.delete("/delete", (req, res) => {
+app.delete("/delete", async (req, res) => {
   var json = req.body;
   const path = json.path;
   const model = json.model;
   var collection = getDocument(path);
 
-  collection
+  await collection
     .delete()
     .then(() => {
       res.send("Success");
@@ -86,16 +83,14 @@ app.delete("/delete", (req, res) => {
       console.log("Can't access database\nError details: " + error);
       res.send("Failed " + error);
     });
-
-  res.end();
 });
 
-app.post("/get", (req, res) => {
+app.post("/get", async (req, res) => {
   var json = req.body;
   const path = json.path;
   var collection = getDocument(path);
 
-  collection
+  await collection
     .get()
     .then((doc) => {
       res.send(doc.data());
@@ -104,11 +99,9 @@ app.post("/get", (req, res) => {
       console.log("Can't access database\nError details: " + error);
       res.send("Failed " + error);
     });
-
-  res.end();
 });
 
-app.post("/getWithConditions", (req, res) => {
+app.post("/getWithConditions", async (req, res) => {
   var json = req.body;
   const path = json.path;
   const conditions = json.conditions;
@@ -191,7 +184,7 @@ app.post("/getWithConditions", (req, res) => {
     }
   }
 
-  collection
+  await collection
   .get()
   .then((doc) => {
     var data = [];

@@ -63,4 +63,5 @@ module.exports = {
         "EQUALS",
         "LIMIT",
       ],
+    STATIC_PASSWORD : "XD5879879DSADA",
 }

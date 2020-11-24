@@ -1,8 +1,8 @@
 import DataModel from "./DataModel";
 
 class ChatRoom extends DataModel {
-  constructor(id, firstID, messagesID, secondID, lastMessage, messageTime) {
-    super(id);
+  constructor(ID, firstID, messagesID, secondID, lastMessage, messageTime) {
+    super(ID);
     this.firstID = firstID;
     this.messagesID = messagesID;
     this.secondID = secondID;

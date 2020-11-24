@@ -35,12 +35,22 @@ module.exports = {
       .signInWithPopup(provider)
       .then(function (res) {
         user = res.user;
-        return user;
+
+        firebase
+          .auth()
+          .sendPasswordResetEmail(user.email)
+          .then(() => {
+            return user;
+          })
+          .catch((error) => {
+            console.log("Error Email Sender: " + error);
+          });
       })
       .catch((error) => {
         console.log("Gmail Service Error: " + error.code);
         return error.code;
       });
+      
     return user;
   },
 };
