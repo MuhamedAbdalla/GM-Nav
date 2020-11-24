@@ -1,8 +1,8 @@
 import DataModel from "./DataModel";
 
 class ChatMessages extends DataModel {
-  constructor(id, date, message, senderID, pathID, receiverID, chatID) {
-    super(id);
+  constructor(ID, date, message, senderID, pathID, receiverID, chatID) {
+    super(ID);
     this.date = date;
     this.message = message;
     this.senderID = senderID;

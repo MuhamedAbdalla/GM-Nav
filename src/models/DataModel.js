@@ -1,6 +1,6 @@
 class DataModel {
-  constructor(id) {
-    this.id = id;
+  constructor(ID) {
+    this.ID = ID;
   }
 }
 

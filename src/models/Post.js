@@ -2,7 +2,7 @@ import DataModel from "./DataModel";
 
 class Post extends DataModel {
   constructor(
-    id,
+    ID,
     date,
     userID,
     name,
@@ -12,7 +12,7 @@ class Post extends DataModel {
     isSold,
     catergory
   ) {
-    super(id);
+    super(ID);
     this.date = date;
     this.userID = userID;
     this.name = name;

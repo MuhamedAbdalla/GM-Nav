@@ -1,8 +1,8 @@
 import DataModel from "./DataModel";
 
 class Conversation extends DataModel {
-  constructor(id, messages, time, userID, seen) {
-    super(id);
+  constructor(ID, messages, time, userID, seen) {
+    super(ID);
     this.messages = messages;
     this.time = time;
     this.userID = userID;

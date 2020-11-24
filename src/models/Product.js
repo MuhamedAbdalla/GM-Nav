@@ -1,8 +1,8 @@
 import DataModel from "./DataModel";
 
 class Product extends DataModel {
-  constructor(id, description) {
-    super(id);
+  constructor(ID, description) {
+    super(ID);
     this.description = description;
   }
 }

@@ -1,8 +1,8 @@
 import DataModel from "./DataModel";
 
 class UserVote extends DataModel {
-  constructor(id, firstID, rate, secondID) {
-    super(id);
+  constructor(ID, firstID, rate, secondID) {
+    super(ID);
     this.firstID = firstID;
     this.secondID = secondID;
     this.rate = rate;
