@@ -110,6 +110,7 @@ class LoginScreen extends React.Component {
     .catch((error) => {
       console.log('error fetching user' + error);
     });
+    await setTimeout(async () => {}, 5000);
   }
   render() {
     if (this.state.signUpFlag) {
@@ -150,7 +151,7 @@ class LoginScreen extends React.Component {
                   <a href="#" class="fa fa-google animation a2" onClick={
                       async () => {
                         await this.gmailAuthentication();
-                        console.log(this.state.currentUser);
+                        
                         if (this.state.currentUser.ID !== "") {
                           this.ShowUp();
                         }
