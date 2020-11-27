@@ -10,6 +10,7 @@ import Conditions from '../../../src/models/Conditions';
 import User from '../../../src/models/User';
 import IDgenerator from '../../services/randomIdgenerator';
 import ReactSnackBar from "react-js-snackbar";
+import Home from '../home/home';
 
 class LoginScreen extends React.Component {
   state = {
@@ -19,6 +20,9 @@ class LoginScreen extends React.Component {
     showingBar: false,
     snackbarMSG: 'Check your email for password...',
     currentUser: new User(""),
+    loggedUser: new User(""),
+    password: "",
+    email: "",
   };
 
   componentDidMount() {
@@ -50,6 +54,79 @@ class LoginScreen extends React.Component {
     this.setState({
       forgetPasswordFlag: true,
     });
+  }
+  setPassword = (e) => {
+    this.setState({
+      password: e.target.value,
+    });
+  }
+  setEmail = (e) => {
+    this.setState({
+      email: e.target.value,
+    });
+  }
+  setLoggedUser = (user) => {
+    this.setState({
+      loggedUser: user,
+    });
+  }
+  loginSubmit = async () => {
+    if (this.state.email == "" || this.state.password == ""
+        || this.state.email.indexOf('@gmail.com') === -1) return;
+
+    var curEmail = this.state.email;
+    var curPassword = this.state.password;
+    var curPath = [BackendConstants.USER_COLLECTION_ENTRY];
+    var cond = [
+      new Conditions(
+        null,
+        curEmail,
+        BackendConstants.USER_MAIL_ENTRY,
+        BackendConstants.DatabaseConstants[8],
+      ),
+      new Conditions(
+        null,
+        curPassword,
+        BackendConstants.USER_PASSWORD_ENTRY,
+        BackendConstants.DatabaseConstants[8],
+      ),
+    ];
+    
+    await fetch(BackendConstants.Cloud + '/getWithConditions', {
+      method: 'post',
+      headers: {'content-type': 'application/json'},
+      body: JSON.stringify({
+        path: curPath,
+        conditions: cond,
+      }),
+    })
+    .then((res) => {
+      res
+      .json()
+      .then(async (data) => {
+        if (data.response.length > 0) {
+          var user = new User(
+            data.response[0].ID,
+            data.response[0].Name,
+            data.response[0].Email,
+            data.response[0].Password,
+            data.response[0].Rate,
+            data.response[0].Vote,
+            data.response[0].Image,
+          );
+
+          this.setLoggedUser(user);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    })
+    .catch((error) => {
+      console.log('Error Login: ' + error);
+    });
+
+    setTimeout(async () => { }, 5000);
   }
   async gmailAuthentication() {
     var user = await GmailAuthentication.gmailAuth();
@@ -113,7 +190,9 @@ class LoginScreen extends React.Component {
     setTimeout(async () => { }, 5000);
   }
   render() {
-    if (this.state.signUpFlag) {
+    if (this.state.loggedUser.ID != "") {
+      return <Home />;
+    } else if (this.state.signUpFlag) {
       return <SignUpScreen />;
     } else if (this.state.forgetPasswordFlag) {
       return <ForgetPassword />;
@@ -137,14 +216,18 @@ class LoginScreen extends React.Component {
                     type="email"
                     className="form-email animation a3"
                     placeholder="Email Address"
+                    value={this.state.email}
+                    onChange={this.setEmail}
                   />
                   <input
                     type="password"
                     className="form-password animation a4"
                     placeholder="Password"
+                    value={this.state.password}
+                    onChange={this.setPassword}
                   />
                   <br></br>
-                  <button className="animation a6">LOGIN</button>
+                  <button className="animation a6" onClick={this.loginSubmit}>LOGIN</button>
                   <button className="animation a6" onClick={this.signUpNavigator}>
                     Sign Up
                   </button>
