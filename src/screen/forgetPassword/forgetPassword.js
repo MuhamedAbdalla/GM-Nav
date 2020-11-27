@@ -4,11 +4,14 @@ import Background from "../commponents/background.jpg";
 import Logo from "../commponents/icon.png";
 import SignUpScreen from "../signUp/SignUp";
 import LoginScreen from "../login/login";
+import GmailServices from '../../services/gmailAuth';
+import BackendConstants from '../../constants/Backend-Constants';
 
 class ForgetPassword extends React.Component {
   state = {
     signUpFlag: false,
     loginFlag: false,
+    email: "",
   };
 
   componentDidMount() {
@@ -28,6 +31,11 @@ class ForgetPassword extends React.Component {
       loginFlag: true,
     });
   };
+  setEmail = (event) => {
+    this.setState({
+      email: event.target.value,
+    });
+  }
   showSnackBar = (event) => {
     // Get the snackbar DIV
     var bar = document.getElementById("emailSnackbar");
@@ -44,6 +52,9 @@ class ForgetPassword extends React.Component {
       loginFlag: true,
     });
   };
+  sendResetEmail = async (email) => {
+    await GmailServices.gmailAuthOnly(email, BackendConstants.STATIC_PASSWORD);
+  }
   render() {
     if (this.state.signUpFlag) {
       return <SignUpScreen />;
@@ -68,9 +79,19 @@ class ForgetPassword extends React.Component {
                   type="email"
                   className="form-email animation a2"
                   placeholder="Email Address"
+                  value={this.state.email}
+                  onChange={this.setEmail}
                 />
                 <br></br>
-                <button className="animation a3" onClick={this.showSnackBar}>
+                <button className="animation a3" onClick={
+                  async () => {
+                    var curEmail = this.state.email;
+                    if (curEmail !== "" && curEmail.indexOf('@gmail.com') !== -1) {
+                      await this.sendResetEmail(curEmail);
+                      this.showSnackBar();
+                    }
+                  }
+                }>
                   Send My Password
                 </button>
                 <button className="animation a4" onClick={this.signUpNavigator}>

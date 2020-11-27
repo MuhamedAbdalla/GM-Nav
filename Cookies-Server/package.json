@@ -1,0 +1,33 @@
+{
+  "name": "cookies-server",
+  "version": "1.0.0",
+  "description": "Cookies server for shared preferences",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "mocha --recursive --exit",
+    "mac-test": "MOCKFIREBASE_DB_URL = ws://localhost.firebaseio.test:5000 && mocha --recursive --exit",
+    "win-test": "SETX MOCKFIREBASE_DB_URL   ws://localhost.firebaseio.test:5000 && mocha --recursive --exit"
+  },
+  "keywords": [
+    "example",
+    "heroku"
+  ],
+  "author": "MuhamedAbdalla",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mocha": "^8.2.1",
+    "mockgoose": "^8.0.4",
+    "mongoose": "^5.10.15",
+    "nock": "^13.0.5",
+    "node-fetch": "^2.6.1",
+    "nodemon": "^2.0.6",
+    "supertest": "^6.0.1"
+  }
+}

@@ -114,6 +114,7 @@ class SignUpScreen extends React.Component {
             this.state.name = "";
             this.state.password = "";
             this.state.selectedImage = null;
+            this.LoginEvent();
           })
           .catch((error) => {
             console.log('error inserting user' + error);
@@ -124,6 +125,8 @@ class SignUpScreen extends React.Component {
     .catch((error) => {
       console.log('error fetching user' + error);
     });
+
+    setTimeout(async () => { }, 5000);
   }
 
   render() {
