@@ -12,6 +12,18 @@ services:
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
+  chat:
+    build:
+      context: ./Chat-Server/
+    command: /usr/app/node_modules/.bin/nodemon src/server.js
+    volumes:
+      - ./Chat-Server/:/usr/app
+      - /usr/app/node_modules
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
   cookies:
     build:
       context: ./Cookies-Server/
