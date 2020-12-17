@@ -1,7 +1,8 @@
 process.env.NODE_ENV = "production";
 
 const expect = require("chai").expect;
-const server = 'http://localhost:8000';
+const request = require("supertest");
+const server = require('../server');
 
 describe("Checking cookies server", () => {
   before((done) => {

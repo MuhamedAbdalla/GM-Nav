@@ -48,7 +48,7 @@ services:
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
-      - REDIS_SERVER_PORT=6060
+      - REDIS_SERVER_PORT=6379
   client:
     build:
       context: ./
