@@ -36,6 +36,19 @@ services:
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
+  cache:
+    build:
+      context: ./Cache-Server/
+    command: /usr/cache/node_modules/.bin/nodemon src/server.js
+    volumes:
+      - ./Cache-Server/:/usr/cache
+      - /usr/cache/node_modules
+    ports:
+      - "5050:5050"
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - REDIS_SERVER_PORT=6060
   client:
     build:
       context: ./
