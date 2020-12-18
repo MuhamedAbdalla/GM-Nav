@@ -4,9 +4,8 @@ const server = require("../server");
 
 describe("Checking cache server", () => {
   beforeEach((done) => {
-    this.timeout(500);
-    setTimeout(done, 300);
     console.log("Tests started!!");
+    done();
   });
 
   after(function (done) {
@@ -32,6 +31,7 @@ describe("Checking cache server", () => {
             expect(res.body.data.Email).equals(
               "muhammed.abdalla.work@gmail.com"
             );
+            done();
           })
           .catch((error) => {
             console.log(error);
@@ -42,5 +42,6 @@ describe("Checking cache server", () => {
         console.log(error);
         done(error);
       });
+      done();
   });
-});
+}).timeout(5000);
