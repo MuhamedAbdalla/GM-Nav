@@ -1,5 +1,4 @@
 FROM node:12.10.0-alpine
-FROM redis:6.0.9
 
 WORKDIR /usr/Cache
 
