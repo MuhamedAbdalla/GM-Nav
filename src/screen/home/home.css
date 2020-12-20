@@ -1,1 +1,97 @@
-/*TODO: Style*/
+h2 {
+  display: inline-block;
+  margin: 0px;
+  margin-top: 0px;
+}
+
+.Add {
+  display: inline-block;
+  margin-left: 830px;
+  margin-right: 10px;
+  height: 50px;
+  width: 50px;
+  background-color: #233c5c;
+  border-color: #233c5c;
+  color: #233c5c;
+  background-image: url("../commponents/add_post.svg");
+  border: 0;
+  background-position: center;
+  background-size: cover;
+  border-color: "#233c5c";
+  background-repeat: no-repeat;
+}
+
+.Profile {
+  display: inline-block;
+  margin-left: 0px;
+  margin-right: 10px;
+  height: 50px;
+  width: 50px;
+  background-color: #233c5c;
+  border-color: #233c5c;
+  color: #233c5c;
+  background-image: url("../commponents/view-profile.svg");
+  border: 0;
+  background-position: center;
+  background-size: cover;
+  border-color: "#233c5c";
+  background-repeat: no-repeat;
+}
+
+.Chat {
+  display: inline-block;
+  margin-left: 0px;
+  margin-right: 10px;
+  height: 50px;
+  width: 50px;
+  background-color: #233c5c;
+  border-color: #233c5c;
+  color: #233c5c;
+  background-image: url("../commponents/cart_with_item.svg");
+  border: 0;
+  background-position: center;
+  background-size: cover;
+  border-color: "#233c5c";
+  background-repeat: no-repeat;
+}
+
+.Setting {
+  display: inline-block;
+  margin-left: 0px;
+  margin-right: 10px;
+  height: 50px;
+  width: 50px;
+  background-color: #233c5c;
+  border-color: #233c5c;
+  color: #233c5c;
+  background-image: url("../commponents/setting.svg");
+  border: 0;
+  background-position: center;
+  background-size: cover;
+  border-color: "#233c5c";
+  background-repeat: no-repeat;
+}
+
+.LogOut {
+  display: inline-block;
+  display: inline-block;
+  margin-left: 0px;
+  margin-right: 10px;
+  height: 50px;
+  width: 50px;
+  background-color: #233c5c;
+  border-color: #233c5c;
+  color: #233c5c;
+  background-image: url("../commponents/logout.svg");
+  border: 0;
+  background-position: center;
+  background-size: cover;
+  border-color: "#233c5c";
+  background-repeat: no-repeat;
+}
+
+.Bar {
+  display: inline-block;
+  color: rgb(223, 201, 201);
+  margin: 0;
+}

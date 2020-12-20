@@ -1,4 +1,5 @@
 import React from "react";
+import "./home.css";
 
 class Home extends React.Component {
   componentDidMount() {
@@ -12,7 +13,14 @@ class Home extends React.Component {
   render() {
     return (
       <body>
-        <h1>Activated Successfully...!</h1>
+        <div className="Bar">
+          <h2>Game Exchange</h2>
+          <button className="Add"></button>
+          <button className="Chat"></button>
+          <button className="Profile"></button>
+          <button className="Setting"></button>
+          <button className="LogOut"></button>
+        </div>
       </body>
     );
   }

@@ -1,6 +1,7 @@
 import React from "react";
 import SplashScreen from './splash/splash_screen';
 import LoginScreen from "./login/login";
+import Home from "./home/home";
 
 class Main extends React.Component {
   state = {
@@ -17,7 +18,8 @@ class Main extends React.Component {
 
   render() {
     return (
-        this.state.redirect ? <LoginScreen /> : <SplashScreen />
+      this.state.redirect ? <Home /> : <SplashScreen />
+       // this.state.redirect ? <LoginScreen /> : <SplashScreen />
     );
   }
 }
