@@ -61,6 +61,47 @@ async function getProfile(curKey, curID) {
   }
 }
 
+// Make request to Database for data
+async function getPosts(curKey, condition) {
+  try {
+    const key = curKey;
+    const conditions = condition;
+
+    var path = [constants.POST_COLLECTION_ENTRY];
+
+    // Request to database
+    await fetch(DB_URL + "/getWithConditions", {
+      method: "post",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        path: path,
+        conditions: conditions,
+      }),
+    })
+      .then((response) => {
+        response
+          .json()
+          .then(async (data) => {
+            // Set data to Redis
+            client.setex(key, 60, data.response);
+
+            return data.response;
+          })
+          .catch((error) => {
+            console.log(error);
+            return null;
+          });
+      })
+      .catch((error) => {
+        console.log("Error Login: " + error);
+        return null;
+      });
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}
+
 // Cache middleware
 async function cache(curKey) {
   const key = curKey;
@@ -84,6 +125,19 @@ app.post('/Cache-Profile', async (req, res) => {
 
   if (data === null) {
     data = await getProfile(key, ID);
+  }
+
+  res.send({ data: data });
+});
+
+app.post('/Cache-Posts', async (req, res) => {
+  const key = req.body.UserKey;
+  const condition = req.body.Condition;
+
+  const data = await cache(key);
+
+  if (data === null) {
+    data = await getPosts(key, condition);
   }
 
   res.send({ data: data });
