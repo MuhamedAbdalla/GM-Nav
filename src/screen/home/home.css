@@ -1,12 +1,30 @@
 h2 {
   display: inline-block;
   margin: 0px;
-  margin-top: 0px;
+  vertical-align: super;
+}
+
+.Logo {
+  display: inline-block;
+  margin-right: 20px;
+  margin-left: 0px;
+  height: 50px;
+  width: 50px;
+  background-color: #233c5c;
+  vertical-align: bottom;
+  border-color: #233c5c;
+  color: #233c5c;
+  background-image: url("../commponents/icon.png");
+  border: 0;
+  background-position: center;
+  background-size: cover;
+  border-color: #233c5c;
+  background-repeat: no-repeat;
 }
 
 .Add {
   display: inline-block;
-  margin-left: 830px;
+  margin-left: 695px;
   margin-right: 10px;
   height: 50px;
   width: 50px;
@@ -14,6 +32,7 @@ h2 {
   border-color: #233c5c;
   color: #233c5c;
   background-image: url("../commponents/add_post.svg");
+  vertical-align: bottom;
   border: 0;
   background-position: center;
   background-size: cover;
@@ -31,6 +50,7 @@ h2 {
   border-color: #233c5c;
   color: #233c5c;
   background-image: url("../commponents/view-profile.svg");
+  vertical-align: bottom;
   border: 0;
   background-position: center;
   background-size: cover;
@@ -48,6 +68,7 @@ h2 {
   border-color: #233c5c;
   color: #233c5c;
   background-image: url("../commponents/cart_with_item.svg");
+  vertical-align: bottom;
   border: 0;
   background-position: center;
   background-size: cover;
@@ -65,6 +86,7 @@ h2 {
   border-color: #233c5c;
   color: #233c5c;
   background-image: url("../commponents/setting.svg");
+  vertical-align: bottom;
   border: 0;
   background-position: center;
   background-size: cover;
@@ -74,7 +96,6 @@ h2 {
 
 .LogOut {
   display: inline-block;
-  display: inline-block;
   margin-left: 0px;
   margin-right: 10px;
   height: 50px;
@@ -83,6 +104,7 @@ h2 {
   border-color: #233c5c;
   color: #233c5c;
   background-image: url("../commponents/logout.svg");
+  vertical-align: bottom;
   border: 0;
   background-position: center;
   background-size: cover;
@@ -92,6 +114,24 @@ h2 {
 
 .Bar {
   display: inline-block;
-  color: rgb(223, 201, 201);
+  vertical-align: bottom;
+  color: rgb(253, 253, 253);
   margin: 0;
+}
+
+.image-filter {
+  height: 50px;
+  width: 50px;
+  display: inline-block;
+  margin-top: 10px;
+  vertical-align: bottom;
+  background-image: url('../commponents/search.svg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.Posts {
+  background-color: rgb(72, 95, 126);
+  margin-top: 15px;
 }
