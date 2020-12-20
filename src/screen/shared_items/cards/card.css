@@ -1,0 +1,40 @@
+.card-style { 
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
+  height: 310px;
+  width: 300px;
+  margin: 50px; 
+  border-radius: 30px;
+  text-align: center; 
+  font-family: arial;
+  margin-top: 50px;
+  margin-left: 70px;
+  display: inline-block;
+  background-color: #cbd6e4;
+} 
+
+.color{
+  background-color: rgb(103, 195, 66);
+}
+
+.button {
+  padding: 15px 25px;
+  font-size: 24px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  background-color: rgba(82, 197, 153, 0.966);
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+ 
+.button:hover {background-color: rgb(103, 195, 66);}
+ 
+.button:active {
+  box-shadow: 0 5px rgb(0, 0, 0);
+  transform: translateY(4px);
+}
+
+.list-image {
+  margin-top: 10px;
+}
