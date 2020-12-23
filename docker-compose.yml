@@ -49,6 +49,19 @@ services:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
       - REDIS_SERVER_PORT=6379
+  search:
+    build:
+      context: ./Search-Server/
+    command: /usr/search/node_modules/.bin/nodemon src/server.js
+    volumes:
+      - ./Search-Server/:/usr/search
+      - /usr/search/node_modules
+    ports:
+      - "7070:7070"
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - REDIS_SERVER_PORT=6379
   client:
     build:
       context: ./
