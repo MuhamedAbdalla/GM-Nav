@@ -1,6 +1,6 @@
 FROM node:12.10.0-alpine
 
-WORKDIR /usr/app
+WORKDIR /usr/search
 
 COPY package*.json ./
 RUN npm ci -qy
