@@ -1,1 +1,1 @@
-# Mobile app for exchanging game between pc or console.
+GM-Nav is a big real app for exchanging games of PC and Console.
